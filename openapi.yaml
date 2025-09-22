@@ -1,0 +1,69 @@
+openapi: 3.1.0
+info:
+  title: Instagram Audit Connector
+  version: 1.0.0
+servers:
+  - url: https://SEU-PROJETO.vercel.app
+paths:
+  /api/ig/audit:
+    get:
+      summary: Retorna dados normalizados de um perfil do Instagram
+      parameters:
+        - name: handle
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: max_posts
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 24
+      responses:
+        '200':
+          description: Dados normalizados
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IgAuditPayload'
+components:
+  schemas:
+    IgAuditPayload:
+      type: object
+      required: [profile, posts]
+      properties:
+        profile:
+          type: object
+          properties:
+            handle: { type: string }
+            name: { type: string }
+            bio: { type: string }
+            followers: { type: integer }
+            following: { type: integer }
+            posts_count: { type: integer }
+            external_url: { type: string, nullable: true }
+            is_business: { type: boolean }
+            profile_pic_url: { type: string }
+            categories:
+              type: array
+              items: { type: string }
+            highlights:
+              type: array
+              items:
+                type: object
+                properties:
+                  title: { type: string }
+        posts:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              media_type: { type: string, enum: [IMAGE, VIDEO, CAROUSEL] }
+              caption: { type: string }
+              timestamp: { type: string }
+              like_count: { type: integer }
+              comment_count: { type: integer }
+              view_count: { type: integer }
+              thumbnail_url: { type: string }
