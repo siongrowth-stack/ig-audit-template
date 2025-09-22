@@ -3,7 +3,7 @@ info:
   title: Instagram Audit Connector
   version: 1.0.0
 servers:
-  - url: https://SEU-PROJETO.vercel.app
+  - url: https://insta-audit-lfip7p95p-sions-projects-332aae1a.vercel.app/
 paths:
   /api/ig/audit:
     get:
