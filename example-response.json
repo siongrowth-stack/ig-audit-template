@@ -1,0 +1,15 @@
+{
+  "profile": {
+    "handle": "comercialnortesul",
+    "name": "Perfil Mock",
+    "bio": "Bio de teste com MOCK_MODE ativo",
+    "followers": 123
+  },
+  "posts": [
+    {
+      "id": "mock_1",
+      "media_type": "VIDEO",
+      "caption": "Exemplo de post 1"
+    }
+  ]
+}
