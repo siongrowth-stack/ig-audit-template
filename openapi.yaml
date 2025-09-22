@@ -3,7 +3,7 @@ info:
   title: Instagram Audit Connector
   version: 1.0.0
 servers:
-  - url: https://SEU-PROJETO.vercel.app   # <-- troque pelo seu domínio .vercel.app (sem barra no final)
+  - url: https://ig-audit-template.vercel.app   # <-- troque pelo seu domínio .vercel.app (sem barra no final)
 paths:
   /api/ig/audit:
     get:
