@@ -3,30 +3,38 @@ info:
   title: Instagram Audit Connector
   version: 1.0.0
 servers:
-  - url: https://insta-audit-lfip7p95p-sions-projects-332aae1a.vercel.app/
+  - url: https://SEU-PROJETO.vercel.app   # <-- troque pelo seu domínio .vercel.app (sem barra no final)
 paths:
   /api/ig/audit:
     get:
+      operationId: getIgAudit              # <-- obrigatório para Actions
       summary: Retorna dados normalizados de um perfil do Instagram
+      description: Retorna IgAuditPayload para um handle (sem @).
       parameters:
         - name: handle
           in: query
           required: true
+          description: Instagram handle sem @
           schema:
             type: string
         - name: max_posts
           in: query
           required: false
+          description: Quantidade máxima de posts
           schema:
             type: integer
             default: 24
       responses:
         '200':
-          description: Dados normalizados
+          description: Payload padronizado
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IgAuditPayload'
+        '400':
+          description: Parâmetros ausentes ou inválidos
+        '500':
+          description: Erro interno
 components:
   schemas:
     IgAuditPayload:
@@ -37,14 +45,14 @@ components:
           type: object
           properties:
             handle: { type: string }
-            name: { type: string }
-            bio: { type: string }
-            followers: { type: integer }
-            following: { type: integer }
-            posts_count: { type: integer }
+            name: { type: string, nullable: true }
+            bio: { type: string, nullable: true }
+            followers: { type: integer, nullable: true }
+            following: { type: integer, nullable: true }
+            posts_count: { type: integer, nullable: true }
             external_url: { type: string, nullable: true }
-            is_business: { type: boolean }
-            profile_pic_url: { type: string }
+            is_business: { type: boolean, nullable: true }
+            profile_pic_url: { type: string, nullable: true }
             categories:
               type: array
               items: { type: string }
@@ -59,11 +67,14 @@ components:
           items:
             type: object
             properties:
-              id: { type: string }
-              media_type: { type: string, enum: [IMAGE, VIDEO, CAROUSEL] }
-              caption: { type: string }
-              timestamp: { type: string }
-              like_count: { type: integer }
-              comment_count: { type: integer }
-              view_count: { type: integer }
-              thumbnail_url: { type: string }
+              id: { type: string, nullable: true }
+              shortcode: { type: string, nullable: true }
+              media_type:
+                type: string
+                enum: [IMAGE, VIDEO, CAROUSEL]
+              caption: { type: string, nullable: true }
+              timestamp: { type: string, format: date-time, nullable: true }
+              like_count: { type: integer, nullable: true }
+              comment_count: { type: integer, nullable: true }
+              view_count: { type: integer, nullable: true }
+              thumbnail_url: { type: string, nullable: true }
