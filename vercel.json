@@ -1,7 +1,6 @@
 {
-  "version": 2,
   "functions": {
-    "api/ig/audit.js": {
+    "api/**/*.js": {
       "runtime": "nodejs18.x"
     }
   }
